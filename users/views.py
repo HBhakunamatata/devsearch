@@ -30,7 +30,12 @@ def user_profile(request, pk):
 
 
 def loginUser(request):
-    """用户登陆页面: 0.已经登陆的用户直接防御性跳转至profiles 1.验证用户是否存在 2.用户登陆验证 验证成功 重定向到个人主页"""
+    """
+    用户登陆页面: 
+        0.已经登陆的用户直接防御性跳转至profiles 
+        1.验证用户是否存在以及校验信息是否正确
+        2.用户登陆验证 验证成功 重定向到个人主页
+    """
     if request.user.is_authenticated:
         return redirect('profiles')
     
@@ -56,6 +61,7 @@ def loginUser(request):
     return render(request, 'users/login-register.html')
 
 
+@login_required(login_url='login')
 def logoutUser(request):
     """用户登出"""
     logout(request)

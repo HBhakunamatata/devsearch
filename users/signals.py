@@ -20,7 +20,7 @@ def profile_deleted(sender, instance, **kwargs):
 
 
 def on_user_created(sender, instance, created, **kwargs):
-    """只当新User被创建时，自动添加Profile"""
+    """只当新User被创建时,自动添加Profile"""
     print('user created signal received!')
     if created:
         Profile.objects.create(
@@ -32,12 +32,12 @@ def on_user_created(sender, instance, created, **kwargs):
 
 
 def on_profile_deleted(sender, instance, **kwargs):
-    """当Profile被删除时自动删除关联的User"""
+    """当Profile被删除时自动删除关联的User"""    
     try:
         user = instance.user
         user.delete()
     except:
-        # 当删除user时，会触犯cascade删除profile，但此时profile的user已经被删除了，会报错
+        # 当触发删除user时，会触犯cascade删除profile，但此时profile的user已经被删除了，会报错
         pass
 
 
